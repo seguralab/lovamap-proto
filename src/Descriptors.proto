@@ -1,0 +1,28 @@
+syntax = "proto3";
+package lovamap;
+
+message IntArray {
+    repeated int32 values = 1;
+}
+
+message DoubleArray {
+    repeated double values = 1;
+}
+
+message Descriptor {
+    string name = 1;
+    oneof value {
+        int32 int_value = 2;
+        double double_value = 3;
+        IntArray int_array_value = 4;
+        DoubleArray double_array_value = 5;
+    }
+}
+
+message Descriptors {
+    string job_id = 1;
+    string version = 2;
+    repeated Descriptor global_descriptors = 3;
+    repeated Descriptor pore_descriptors = 4;
+    repeated Descriptor other_descriptors = 5;
+}
