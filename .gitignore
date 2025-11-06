@@ -20,5 +20,8 @@ Makefile
 *.swo
 *~
 
+# vcpkg files
+vcpkg_installed/
+
 # macOS
 .DS_Store
