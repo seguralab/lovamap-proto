@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lovamap-proto-tools"
+version = "0.1.0"
+description = "Tools for working with lovamap protobuf files"
+readme = "README.md"
+requires-python = ">=3.7"
+authors = [
+    {name = "Lovamap Project"}
+]
+dependencies = [
+    "protobuf>=3.20.0",
+]
+
+[project.scripts]
+lvmp-pb2json = "tools.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "grpcio-tools>=1.50.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tools*"]

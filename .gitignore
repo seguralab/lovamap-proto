@@ -21,6 +21,11 @@ cmake/
 *.swo
 *~
 
+# Python files
+__pycache__/
+*.pyc
+*.egg-info/
+
 # vcpkg files
 vcpkg_installed/
 
