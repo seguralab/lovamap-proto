@@ -25,6 +25,7 @@ cmake/
 __pycache__/
 *.pyc
 *.egg-info/
+*_pb2.py
 
 # vcpkg files
 vcpkg_installed/
