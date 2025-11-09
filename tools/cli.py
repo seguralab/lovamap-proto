@@ -33,7 +33,7 @@ except ImportError:
     print("  protoc --python_out=. src/Descriptors.proto", file=sys.stderr)
     print("\nThis will generate Descriptors_pb2.py in the current directory.", file=sys.stderr)
     print("\nMake sure you run this command from the lovamap-proto directory,", file=sys.stderr)
-    print("and run proto-to-json from the same directory.", file=sys.stderr)
+    print("and run lvmp-pb2json from the same directory.", file=sys.stderr)
     sys.exit(1)
 
 
@@ -95,7 +95,7 @@ def main():
     """Main entry point for the CLI."""
     parser = argparse.ArgumentParser(
         description='Convert protobuf binary files to JSON format.',
-        epilog='Example: proto-to-json input.pb output.json'
+        epilog='Example: lvmp-pb2json input.pb output.json'
     )
     parser.add_argument(
         'input_file',

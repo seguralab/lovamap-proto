@@ -122,9 +122,31 @@ cmake --build .
 
 A command-line tool is provided to convert binary protobuf files to JSON format.
 
-#### Installation (Recommended: pipx)
+#### Quick Setup (Recommended)
 
-Using `pipx` installs the tool in an isolated environment - no need to manage Python environments yourself!
+Run the automated setup script to install all dependencies:
+
+```bash
+cd /path/to/lovamap-proto
+./setup.sh
+```
+
+The script will:
+- Install `pipx` (if not already installed)
+- Install `protoc` (Protocol Buffer compiler)
+- Generate Python bindings from the proto file
+- Install the `lvmp-pb2json` tool
+
+**Options:**
+```bash
+./setup.sh --dry-run    # Preview what would be installed
+./setup.sh --verbose    # Show detailed output
+./setup.sh --help       # Show all options
+```
+
+#### Manual Installation
+
+If you prefer to install manually:
 
 1. Install `pipx` if you don't have it:
    ```bash
@@ -164,20 +186,20 @@ Using `pipx` installs the tool in an isolated environment - no need to manage Py
 
 #### Usage
 
-Once installed with pipx, the `proto-to-json` command is available globally:
+Once installed, the `lvmp-pb2json` command is available globally:
 
 ```bash
 # Convert to JSON and print to stdout
-proto-to-json input.pb
+lvmp-pb2json input.pb
 
 # Convert to JSON file
-proto-to-json input.pb output.json
+lvmp-pb2json input.pb output.json
 
 # Compact JSON output (no pretty-printing)
-proto-to-json input.pb output.json --compact
+lvmp-pb2json input.pb output.json --compact
 ```
 
-**Note:** Run `proto-to-json` from the lovamap-proto directory (where `Descriptors_pb2.py` is located).
+**Note:** Run `lvmp-pb2json` from the lovamap-proto directory (where `Descriptors_pb2.py` is located).
 
 #### Alternative: Manual Installation
 
