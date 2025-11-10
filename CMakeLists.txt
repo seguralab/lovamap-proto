@@ -63,23 +63,26 @@ install(EXPORT lovamap-proto-targets
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/lovamap-proto
 )
 
-# Create config file for find_package support
-include(CMakePackageConfigHelpers)
+# Only generate config files when building standalone (not as submodule)
+if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+    # Create config file for find_package support
+    include(CMakePackageConfigHelpers)
 
-configure_package_config_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/lovamap-proto-config.cmake.in
-    ${CMAKE_CURRENT_BINARY_DIR}/lovamap-proto-config.cmake
-    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/lovamap-proto
-)
+    configure_package_config_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/lovamap-proto-config.cmake.in
+        ${CMAKE_CURRENT_BINARY_DIR}/lovamap-proto-config.cmake
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/lovamap-proto
+    )
 
-write_basic_package_version_file(
-    ${CMAKE_CURRENT_BINARY_DIR}/lovamap-proto-config-version.cmake
-    VERSION ${PROJECT_VERSION}
-    COMPATIBILITY SameMajorVersion
-)
+    write_basic_package_version_file(
+        ${CMAKE_CURRENT_BINARY_DIR}/lovamap-proto-config-version.cmake
+        VERSION ${PROJECT_VERSION}
+        COMPATIBILITY SameMajorVersion
+    )
 
-install(FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/lovamap-proto-config.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/lovamap-proto-config-version.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/lovamap-proto
-)
+    install(FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/lovamap-proto-config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/lovamap-proto-config-version.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/lovamap-proto
+    )
+endif()
