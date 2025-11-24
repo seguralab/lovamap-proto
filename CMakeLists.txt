@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(NOT TARGET protobuf::libprotobuf)
-    find_package(Protobuf REQUIRED)
+    find_package(protobuf REQUIRED)
 endif()
 
 set(PROTO_FILES
