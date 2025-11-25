@@ -1,0 +1,22 @@
+name: Run Setup Script
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Make setup script executable
+        run: chmod +x ./setup.sh
+
+      - name: Run setup script
+        run: ./setup.sh
