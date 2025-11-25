@@ -197,7 +197,7 @@ install_protoc() {
 
 # Generate Python bindings
 generate_bindings() {
-    local proto_file="$SCRIPT_DIR/src/Descriptors.proto"
+    local proto_file="$SCRIPT_DIR/schemas/Descriptors.proto"
     local output_file="$SCRIPT_DIR/Descriptors_pb2.py"
 
     if [[ ! -f "$proto_file" ]]; then
@@ -217,7 +217,7 @@ generate_bindings() {
         return 1
     fi
 
-    run_cmd protoc --python_out=. -I src src/Descriptors.proto
+    run_cmd protoc --python_out=. -I schemas schemas/Descriptors.proto
 
     if [[ "$DRY_RUN" == "false" ]]; then
         if [[ -f "$output_file" ]]; then
