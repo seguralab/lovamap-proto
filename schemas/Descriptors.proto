@@ -89,7 +89,9 @@ message OtherDescriptors {
     DoubleArray RegionsVol10 = 21;
     DoubleArray RegionsVol30 = 22;
     DoubleArray RegionsVol60 = 23;
-
+    DoubleArray xParticleCOM = 24;
+    DoubleArray yParticleCOM = 25;
+    DoubleArray zParticleCOM = 26;
 }
 
 message Descriptors {
