@@ -149,8 +149,6 @@ If you're developing or contributing to this project:
    lvmp-json2pb input.json output.pb
    ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed development workflow.
-
 #### Option 2: For End Users (setup.sh)
 
 Run the automated setup script to install all dependencies:
