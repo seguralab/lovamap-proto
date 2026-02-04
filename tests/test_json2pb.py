@@ -1,8 +1,6 @@
 """Tests for json2pb conversion module."""
 
 import pytest
-import sys
-from pathlib import Path
 
 from tools.json2pb import json_to_protobuf
 
@@ -64,16 +62,18 @@ def test_round_trip_conversion(valid_full_json, temp_output_file, temp_json_file
     protobuf_to_json(str(temp_output_file), str(temp_json_file))
 
     # Load both JSON files and compare
-    with open(valid_full_json, 'r') as f:
+    with open(valid_full_json, "r") as f:
         original = json.load(f)
 
-    with open(temp_json_file, 'r') as f:
+    with open(temp_json_file, "r") as f:
         roundtrip = json.load(f)
 
     # Compare key fields (protobuf may add default values)
-    assert roundtrip['jobId'] == original['jobId']
-    assert roundtrip['version'] == original['version']
+    assert roundtrip["jobId"] == original["jobId"]
+    assert roundtrip["version"] == original["version"]
 
-    if 'globalDescriptors' in original:
-        assert 'globalDescriptors' in roundtrip
-        assert roundtrip['globalDescriptors']['Dx'] == original['globalDescriptors']['Dx']
+    if "globalDescriptors" in original:
+        assert "globalDescriptors" in roundtrip
+        assert (
+            roundtrip["globalDescriptors"]["Dx"] == original["globalDescriptors"]["Dx"]
+        )

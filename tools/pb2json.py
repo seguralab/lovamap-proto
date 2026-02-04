@@ -12,7 +12,9 @@ import argparse
 from .converter import ensure_protobuf_available, get_descriptors_module
 
 
-def protobuf_to_json(input_file: str, output_file: str = None, pretty: bool = True) -> None:
+def protobuf_to_json(
+    input_file: str, output_file: str = None, pretty: bool = True
+) -> None:
     """
     Convert a protobuf binary file to JSON.
 
@@ -26,7 +28,7 @@ def protobuf_to_json(input_file: str, output_file: str = None, pretty: bool = Tr
 
     # Read the binary protobuf file
     try:
-        with open(input_file, 'rb') as f:
+        with open(input_file, "rb") as f:
             binary_data = f.read()
     except FileNotFoundError:
         print(f"Error: Input file '{input_file}' not found.", file=sys.stderr)
@@ -41,7 +43,10 @@ def protobuf_to_json(input_file: str, output_file: str = None, pretty: bool = Tr
         descriptors.ParseFromString(binary_data)
     except Exception as e:
         print(f"Error parsing protobuf data: {e}", file=sys.stderr)
-        print("Make sure the input file is a valid Descriptors protobuf binary.", file=sys.stderr)
+        print(
+            "Make sure the input file is a valid Descriptors protobuf binary.",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     # Convert to JSON
@@ -49,7 +54,7 @@ def protobuf_to_json(input_file: str, output_file: str = None, pretty: bool = Tr
         json_data = json_format.MessageToJson(
             descriptors,
             preserving_proto_field_name=True,  # Use original field names from proto
-            indent=2 if pretty else None
+            indent=2 if pretty else None,
         )
     except Exception as e:
         print(f"Error converting to JSON: {e}", file=sys.stderr)
@@ -58,7 +63,7 @@ def protobuf_to_json(input_file: str, output_file: str = None, pretty: bool = Tr
     # Write output
     if output_file:
         try:
-            with open(output_file, 'w') as f:
+            with open(output_file, "w") as f:
                 f.write(json_data)
             print(f"Successfully converted '{input_file}' to '{output_file}'")
         except Exception as e:
@@ -72,32 +77,25 @@ def protobuf_to_json(input_file: str, output_file: str = None, pretty: bool = Tr
 def main():
     """Main entry point for the CLI."""
     parser = argparse.ArgumentParser(
-        description='Convert protobuf binary files to JSON format.',
-        epilog='Example: lvmp-pb2json input.pb output.json'
+        description="Convert protobuf binary files to JSON format.",
+        epilog="Example: lvmp-pb2json input.pb output.json",
+    )
+    parser.add_argument("input_file", help="Path to the input protobuf binary file")
+    parser.add_argument(
+        "output_file",
+        nargs="?",
+        help="Path to the output JSON file (optional, prints to stdout if not specified)",
     )
     parser.add_argument(
-        'input_file',
-        help='Path to the input protobuf binary file'
-    )
-    parser.add_argument(
-        'output_file',
-        nargs='?',
-        help='Path to the output JSON file (optional, prints to stdout if not specified)'
-    )
-    parser.add_argument(
-        '--compact',
-        action='store_true',
-        help='Output compact JSON instead of pretty-printed'
+        "--compact",
+        action="store_true",
+        help="Output compact JSON instead of pretty-printed",
     )
 
     args = parser.parse_args()
 
-    protobuf_to_json(
-        args.input_file,
-        args.output_file,
-        pretty=not args.compact
-    )
+    protobuf_to_json(args.input_file, args.output_file, pretty=not args.compact)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

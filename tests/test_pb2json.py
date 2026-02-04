@@ -1,7 +1,6 @@
 """Tests for pb2json CLI module."""
 
 import pytest
-from pathlib import Path
 
 from tools.pb2json import protobuf_to_json
 

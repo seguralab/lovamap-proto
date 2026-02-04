@@ -13,9 +13,7 @@ from .converter import ensure_protobuf_available, get_descriptors_module
 
 
 def json_to_protobuf(
-    input_file: str,
-    output_file: str = None,
-    validate_only: bool = False
+    input_file: str, output_file: str = None, validate_only: bool = False
 ) -> None:
     """
     Convert a JSON file to protobuf binary.
@@ -30,7 +28,7 @@ def json_to_protobuf(
 
     # Read the JSON file
     try:
-        with open(input_file, 'r', encoding='utf-8') as f:
+        with open(input_file, "r", encoding="utf-8") as f:
             json_data = f.read()
     except FileNotFoundError:
         print(f"Error: Input file '{input_file}' not found.", file=sys.stderr)
@@ -64,7 +62,7 @@ def json_to_protobuf(
     # Write output
     if output_file:
         try:
-            with open(output_file, 'wb') as f:
+            with open(output_file, "wb") as f:
                 f.write(binary_data)
             print(f"Successfully converted '{input_file}' to '{output_file}'")
         except Exception as e:
@@ -78,32 +76,23 @@ def json_to_protobuf(
 def main():
     """Main entry point for the CLI."""
     parser = argparse.ArgumentParser(
-        description='Convert JSON files to protobuf binary format.',
-        epilog='Example: lvmp-json2pb input.json output.pb'
+        description="Convert JSON files to protobuf binary format.",
+        epilog="Example: lvmp-json2pb input.json output.pb",
+    )
+    parser.add_argument("input_file", help="Path to the input JSON file")
+    parser.add_argument(
+        "output_file",
+        nargs="?",
+        help="Path to the output protobuf binary file (optional, writes to stdout if not specified)",
     )
     parser.add_argument(
-        'input_file',
-        help='Path to the input JSON file'
-    )
-    parser.add_argument(
-        'output_file',
-        nargs='?',
-        help='Path to the output protobuf binary file (optional, writes to stdout if not specified)'
-    )
-    parser.add_argument(
-        '--validate',
-        action='store_true',
-        help='Validate JSON without writing output'
+        "--validate", action="store_true", help="Validate JSON without writing output"
     )
 
     args = parser.parse_args()
 
-    json_to_protobuf(
-        args.input_file,
-        args.output_file,
-        validate_only=args.validate
-    )
+    json_to_protobuf(args.input_file, args.output_file, validate_only=args.validate)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

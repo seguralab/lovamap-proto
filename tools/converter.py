@@ -34,6 +34,7 @@ def ensure_protobuf_available():
     """
     try:
         from google.protobuf import json_format
+
         return json_format
     except ImportError:
         print(PROTOBUF_IMPORT_ERROR, file=sys.stderr)
@@ -57,6 +58,7 @@ def get_descriptors_module():
 
     try:
         import Descriptors_pb2
+
         return Descriptors_pb2
     except ImportError:
         print(GENERATED_CODE_ERROR, file=sys.stderr)
