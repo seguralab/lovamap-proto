@@ -82,58 +82,43 @@ command_exists() {
     command -v "$1" &>/dev/null
 }
 
-# Install pipx
-install_pipx() {
-    local os
-    os=$(detect_os)
-
-    if command_exists pipx; then
-        log_success "pipx is already installed"
+# Install uv
+install_uv() {
+    if command_exists uv; then
+        local version
+        version=$(uv --version 2>/dev/null || echo "unknown")
+        log_success "uv is already installed: $version"
         return 0
     fi
 
-    log_info "Installing pipx..."
+    log_info "Installing uv..."
 
-    case "$os" in
-        macos)
-            if ! command_exists brew; then
-                log_error "Homebrew is required but not installed"
-                log_error "Install Homebrew from: https://brew.sh"
-                return 1
-            fi
-            run_cmd brew install pipx
-            ;;
-        linux)
-            if command_exists apt-get; then
-                log_info "Using apt-get to install pipx"
-                run_cmd python3 -m pip install --user pipx
-            elif command_exists yum; then
-                log_info "Using yum to install pipx"
-                run_cmd python3 -m pip install --user pipx
-            else
-                log_info "Using pip to install pipx"
-                run_cmd python3 -m pip install --user pipx
-            fi
-            ;;
-        *)
-            log_error "Unsupported operating system: $OSTYPE"
-            return 1
-            ;;
-    esac
-
-    # Ensure pipx is on PATH
-    if [[ "$DRY_RUN" == "false" ]]; then
-        if command_exists pipx; then
-            run_cmd pipx ensurepath
-            log_success "pipx installed successfully"
-            log_warn "You may need to restart your shell or run: source ~/.bashrc (or ~/.zshrc)"
-        else
-            log_error "pipx installation failed"
-            return 1
-        fi
+    # UV has a universal installer script that works on all platforms
+    if [[ "$DRY_RUN" == "true" ]]; then
+        log_info "[DRY RUN] Would execute: curl -LsSf https://astral.sh/uv/install.sh | sh"
+        return 0
     fi
 
-    return 0
+    if ! command_exists curl; then
+        log_error "curl is required but not installed"
+        return 1
+    fi
+
+    # Download and run the UV installer
+    if curl -LsSf https://astral.sh/uv/install.sh | sh; then
+        log_success "uv installed successfully"
+        log_warn "You may need to restart your shell or run: source ~/.bashrc (or ~/.zshrc)"
+
+        # Try to add UV to current PATH for this session
+        if [[ -d "$HOME/.cargo/bin" ]]; then
+            export PATH="$HOME/.cargo/bin:$PATH"
+        fi
+
+        return 0
+    else
+        log_error "uv installation failed"
+        return 1
+    fi
 }
 
 # Install protoc
@@ -233,20 +218,20 @@ generate_bindings() {
 
 # Install the Python tool
 install_tool() {
-    if ! command_exists pipx; then
-        log_error "pipx not found. Please install it first."
+    if ! command_exists uv; then
+        log_error "uv not found. Please install it first."
         return 1
     fi
 
-    log_info "Installing lovamap-proto-tools with pipx..."
+    log_info "Installing lovamap-proto-tools with uv..."
 
     # Check if already installed
-    if pipx list 2>/dev/null | grep -q "lovamap-proto-tools"; then
+    if uv tool list 2>/dev/null | grep -q "lovamap-proto-tools"; then
         log_warn "lovamap-proto-tools is already installed"
         log_info "Reinstalling to ensure it's up to date..."
-        run_cmd pipx install "$SCRIPT_DIR" --force
+        run_cmd uv tool install --force "$SCRIPT_DIR"
     else
-        run_cmd pipx install "$SCRIPT_DIR"
+        run_cmd uv tool install "$SCRIPT_DIR"
     fi
 
     if [[ "$DRY_RUN" == "false" ]]; then
@@ -255,7 +240,7 @@ install_tool() {
             log_success "Command 'lvmp-pb2json' is now available"
         else
             log_error "Installation succeeded but command not found"
-            log_error "You may need to restart your shell or add pipx to your PATH"
+            log_error "You may need to restart your shell or add uv tools to your PATH"
             return 1
         fi
     fi
@@ -269,11 +254,13 @@ verify_installation() {
 
     local all_good=true
 
-    # Check pipx
-    if command_exists pipx; then
-        log_success "✅ pipx is installed"
+    # Check uv
+    if command_exists uv; then
+        local version
+        version=$(uv --version)
+        log_success "✅ uv is installed: $version"
     else
-        log_error "❌ pipx is not installed"
+        log_error "❌ uv is not installed"
         all_good=false
     fi
 
@@ -334,7 +321,7 @@ Options:
     -h, --help          Show this help message
 
 Components installed:
-    - pipx (Python package manager)
+    - uv (Fast Python package manager)
     - protoc (Protocol Buffer compiler)
     - lovamap-proto-tools (Python conversion tool)
     - Python bindings from Descriptors.proto
@@ -376,7 +363,7 @@ main() {
     log_info "OS detected: $(detect_os)"
 
     # Install components
-    install_pipx || exit 1
+    install_uv || exit 1
     install_protoc || exit 1
     generate_bindings || exit 1
     install_tool || exit 1
