@@ -295,11 +295,19 @@ verify_installation() {
         all_good=false
     fi
 
-    # Check tool
+    # Check pb2json tool
     if command_exists lvmp-pb2json; then
         log_success "🚀 lvmp-pb2json command is available"
     else
         log_error "❌ lvmp-pb2json command not found"
+        all_good=false
+    fi
+
+    # Check json2pb tool
+    if command_exists lvmp-json2pb; then
+        log_success "🚀 lvmp-json2pb command is available"
+    else
+        log_error "❌ lvmp-json2pb command not found"
         all_good=false
     fi
 

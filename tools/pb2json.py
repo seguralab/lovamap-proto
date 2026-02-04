@@ -7,34 +7,9 @@ schema and converts it to human-readable JSON format.
 """
 
 import sys
-import os
 import argparse
-from pathlib import Path
 
-try:
-    from google.protobuf import json_format
-except ImportError:
-    print("Error: protobuf package is not installed.", file=sys.stderr)
-    print("Install it with: pip install protobuf", file=sys.stderr)
-    print("Or install this package with: pipx install lovamap-proto-tools", file=sys.stderr)
-    sys.exit(1)
-
-# Try to import the generated protobuf module
-try:
-    # Look for the generated module in the current working directory
-    cwd = Path.cwd()
-    if str(cwd) not in sys.path:
-        sys.path.insert(0, str(cwd))
-
-    import Descriptors_pb2
-except ImportError:
-    print("Error: Generated protobuf Python code not found.", file=sys.stderr)
-    print("\nYou need to compile the proto file first:", file=sys.stderr)
-    print("  protoc --python_out=. src/Descriptors.proto", file=sys.stderr)
-    print("\nThis will generate Descriptors_pb2.py in the current directory.", file=sys.stderr)
-    print("\nMake sure you run this command from the lovamap-proto directory,", file=sys.stderr)
-    print("and run lvmp-pb2json from the same directory.", file=sys.stderr)
-    sys.exit(1)
+from .converter import ensure_protobuf_available, get_descriptors_module
 
 
 def protobuf_to_json(input_file: str, output_file: str = None, pretty: bool = True) -> None:
@@ -46,6 +21,9 @@ def protobuf_to_json(input_file: str, output_file: str = None, pretty: bool = Tr
         output_file: Path to the output JSON file (optional)
         pretty: Whether to pretty-print the JSON (default: True)
     """
+    json_format = ensure_protobuf_available()
+    Descriptors_pb2 = get_descriptors_module()
+
     # Read the binary protobuf file
     try:
         with open(input_file, 'rb') as f:
