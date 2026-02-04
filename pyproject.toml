@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lovamap-proto-tools"
-version = "0.1.0"
+version = "0.2.0"
 description = "Tools for working with lovamap protobuf files"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 authors = [
     {name = "Lovamap Project"}
 ]
@@ -16,13 +16,27 @@ dependencies = [
 ]
 
 [project.scripts]
-lvmp-pb2json = "tools.cli:main"
+lvmp-pb2json = "tools.pb2json:main"
+lvmp-json2pb = "tools.json2pb:main"
 
 [project.optional-dependencies]
 dev = [
     "grpcio-tools>=1.50.0",
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
 ]
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["tools*"]
+
+[tool.setuptools.package-data]
+"*" = ["Descriptors_pb2.py"]
+
+[dependency-groups]
+dev = [
+    "grpcio-tools>=1.50.0",
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.1.0",
+]
