@@ -663,17 +663,6 @@ dependencies = [
     { name = "protobuf", version = "6.33.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
 ]
 
-[package.optional-dependencies]
-dev = [
-    { name = "grpcio-tools", version = "1.70.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
-    { name = "grpcio-tools", version = "1.76.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
-    { name = "pytest", version = "8.3.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
-    { name = "pytest", version = "8.4.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
-    { name = "pytest", version = "9.0.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
-    { name = "pytest-cov", version = "5.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
-    { name = "pytest-cov", version = "7.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
-]
-
 [package.dev-dependencies]
 dev = [
     { name = "grpcio-tools", version = "1.70.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
@@ -687,13 +676,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "grpcio-tools", marker = "extra == 'dev'", specifier = ">=1.50.0" },
-    { name = "protobuf", specifier = ">=3.20.0" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.0.0" },
-    { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=4.0.0" },
-]
-provides-extras = ["dev"]
+requires-dist = [{ name = "protobuf", specifier = ">=3.20.0" }]
 
 [package.metadata.requires-dev]
 dev = [
