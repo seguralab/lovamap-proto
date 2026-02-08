@@ -57,7 +57,7 @@ def get_descriptors_module():
         sys.path.insert(0, str(cwd))
 
     try:
-        import Descriptors_pb2
+        from lovamap_proto import Descriptors_pb2
 
         return Descriptors_pb2
     except ImportError:

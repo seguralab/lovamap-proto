@@ -2,7 +2,7 @@
 
 import pytest
 
-from tools.json2pb import json_to_protobuf
+from lovamap_proto.json2pb import json_to_protobuf
 
 
 def test_json_to_protobuf_valid_minimal(valid_minimal_json, temp_output_file):
@@ -52,7 +52,7 @@ def test_json_to_protobuf_invalid_json_type(invalid_wrong_type_json):
 
 def test_round_trip_conversion(valid_full_json, temp_output_file, temp_json_file):
     """Test that JSON -> proto -> JSON produces equivalent result."""
-    from tools.pb2json import protobuf_to_json
+    from lovamap_proto.pb2json import protobuf_to_json
     import json
 
     # Convert JSON to proto

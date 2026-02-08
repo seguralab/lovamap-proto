@@ -2,7 +2,7 @@
 
 import pytest
 
-from tools.pb2json import protobuf_to_json
+from lovamap_proto.pb2json import protobuf_to_json
 
 
 def test_protobuf_to_json_requires_valid_input(temp_json_file):

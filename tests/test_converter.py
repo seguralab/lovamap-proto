@@ -1,6 +1,6 @@
 """Tests for the converter shared utilities module."""
 
-from tools.converter import ensure_protobuf_available, get_descriptors_module
+from lovamap_proto.converter import ensure_protobuf_available, get_descriptors_module
 
 
 def test_ensure_protobuf_available():
