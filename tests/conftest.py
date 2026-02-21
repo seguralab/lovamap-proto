@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-# Add the parent directory to the path so we can import tools
+# Add the parent directory to the path so we can import lovamap_proto
 repo_root = Path(__file__).parent.parent
 if str(repo_root) not in sys.path:
     sys.path.insert(0, str(repo_root))

@@ -16,8 +16,8 @@ dependencies = [
 ]
 
 [project.scripts]
-lvmp-pb2json = "tools.pb2json:main"
-lvmp-json2pb = "tools.json2pb:main"
+lvmp-pb2json = "lovamap_proto.pb2json:main"
+lvmp-json2pb = "lovamap_proto.json2pb:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
