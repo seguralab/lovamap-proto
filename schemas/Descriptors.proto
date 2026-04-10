@@ -9,6 +9,10 @@ message DoubleArray {
     repeated double values = 1;
 }
 
+message BoolArray {
+    repeated bool values = 1;
+}
+
 message GlobalDescriptors {
     double Dx = 1;
     int64 NumVoxels = 2;
@@ -63,6 +67,7 @@ message PoreDescriptors {
     DoubleArray xCentroid = 28;
     DoubleArray yCentroid = 29;
     DoubleArray zCentroid = 30;
+    BoolArray IsInterior = 31;
 }
 
 message OtherDescriptors {
