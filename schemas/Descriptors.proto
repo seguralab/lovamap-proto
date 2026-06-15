@@ -34,6 +34,7 @@ message GlobalDescriptors {
     int64 MaxNumPeaksAmongSurfacePores = 18;
     double LigandHotspotsVolFrac = 19;
     int64 MaxNumEquidistantParticles = 20;
+    string DomainSize = 21;
 }
 
 message PoreDescriptors {
