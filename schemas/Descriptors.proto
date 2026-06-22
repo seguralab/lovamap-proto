@@ -48,7 +48,7 @@ message PoreDescriptors {
     IntArray NumCrawlSpaces = 8;
     IntArray NumConnectedPores = 9;
     IntArray NumSurroundingPores = 10;
-    IntArray NumParticleEdges = 11;
+    IntArray NumEdges = 11;
     DoubleArray NormalizedNeighbors = 12; // What is this?
     DoubleArray MeanLocalThickness = 13;
     IntArray NumPeaks = 14;
