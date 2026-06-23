@@ -27,7 +27,7 @@ message GlobalDescriptors {
     double NumIntPoresdivParticlesSurrIntPores = 11;
     int64 NumExitDoors = 12;
     int64 NumIntDoors = 13;
-    int64 NumIntPaths = 14;
+    int64 NumPaths = 14;
     double ParticleAdjacencyMatrixEigenvalue = 15;
     double PeakAdjacencyMatrixEigenvalue = 16;
     double PoreAdjacencyMatrixEigenvalue = 17;
