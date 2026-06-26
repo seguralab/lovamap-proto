@@ -15,7 +15,7 @@
     "NumIntPoresdivParticlesSurrIntPores": 0.5,
     "NumExitDoors": 2,
     "NumIntDoors": 3,
-    "NumIntPaths": 4,
+    "NumPaths": 4,
     "ParticleAdjacencyMatrixEigenvalue": 0.95,
     "PeakAdjacencyMatrixEigenvalue": 0.85,
     "PoreAdjacencyMatrixEigenvalue": 0.75,
