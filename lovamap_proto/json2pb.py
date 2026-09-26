@@ -8,6 +8,7 @@ schema and converts it to binary protobuf format.
 
 import sys
 import argparse
+import math
 
 from .converter import ensure_protobuf_available, get_descriptors_module
 
@@ -41,6 +42,16 @@ def json_to_protobuf(
     descriptors = Descriptors_pb2.Descriptors()
     try:
         json_format.Parse(json_data, descriptors)
+        if descriptors.HasField("runConfiguration"):
+            config = descriptors.runConfiguration
+            if not (config.HasField("surfaceHallwayThreshold") and config.HasField("clusterExteriorPores")):
+                raise json_format.ParseError(
+                    "runConfiguration requires surfaceHallwayThreshold and clusterExteriorPores"
+                )
+            if not math.isfinite(config.surfaceHallwayThreshold) or config.surfaceHallwayThreshold < 0:
+                raise json_format.ParseError(
+                    "runConfiguration.surfaceHallwayThreshold must be finite and non-negative"
+                )
     except json_format.ParseError as e:
         print(f"Error: JSON validation failed: {e}", file=sys.stderr)
         sys.exit(1)

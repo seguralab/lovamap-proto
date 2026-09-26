@@ -100,10 +100,16 @@ message OtherDescriptors {
     DoubleArray zParticleCOM = 26;
 }
 
+message RunConfiguration {
+    optional double surfaceHallwayThreshold = 1;
+    optional bool clusterExteriorPores = 2;
+}
+
 message Descriptors {
     string jobId = 1;
     string version = 2;
     GlobalDescriptors globalDescriptors = 3;
     PoreDescriptors poreDescriptors = 4;
     OtherDescriptors otherDescriptors = 5;
+    optional RunConfiguration runConfiguration = 6;
 }
