@@ -44,11 +44,17 @@ def json_to_protobuf(
         json_format.Parse(json_data, descriptors)
         if descriptors.HasField("runConfiguration"):
             config = descriptors.runConfiguration
-            if not (config.HasField("surfaceHallwayThreshold") and config.HasField("clusterExteriorPores")):
+            if not (
+                config.HasField("surfaceHallwayThreshold")
+                and config.HasField("clusterExteriorPores")
+            ):
                 raise json_format.ParseError(
                     "runConfiguration requires surfaceHallwayThreshold and clusterExteriorPores"
                 )
-            if not math.isfinite(config.surfaceHallwayThreshold) or config.surfaceHallwayThreshold < 0:
+            if (
+                not math.isfinite(config.surfaceHallwayThreshold)
+                or config.surfaceHallwayThreshold < 0
+            ):
                 raise json_format.ParseError(
                     "runConfiguration.surfaceHallwayThreshold must be finite and non-negative"
                 )

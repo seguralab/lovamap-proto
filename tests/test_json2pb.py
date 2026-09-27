@@ -52,8 +52,11 @@ def test_json_to_protobuf_invalid_json_type(invalid_wrong_type_json):
 
 @pytest.mark.parametrize(
     "configuration",
-    [None, {"surfaceHallwayThreshold": 0, "clusterExteriorPores": False},
-     {"surfaceHallwayThreshold": 0.25, "clusterExteriorPores": True}],
+    [
+        None,
+        {"surfaceHallwayThreshold": 0, "clusterExteriorPores": False},
+        {"surfaceHallwayThreshold": 0.25, "clusterExteriorPores": True},
+    ],
 )
 def test_run_configuration_round_trip(
     configuration, tmp_path, temp_output_file, temp_json_file
@@ -99,9 +102,16 @@ def test_run_configuration_rejects_invalid_threshold(threshold, tmp_path):
     import json
 
     input_file = tmp_path / "invalid-threshold.json"
-    input_file.write_text(json.dumps({"runConfiguration": {
-        "surfaceHallwayThreshold": threshold, "clusterExteriorPores": False
-    }}))
+    input_file.write_text(
+        json.dumps(
+            {
+                "runConfiguration": {
+                    "surfaceHallwayThreshold": threshold,
+                    "clusterExteriorPores": False,
+                }
+            }
+        )
+    )
     with pytest.raises(SystemExit) as exc_info:
         json_to_protobuf(str(input_file), validate_only=True)
     assert exc_info.value.code == 1
