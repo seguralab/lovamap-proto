@@ -21,7 +21,9 @@
     "PoreAdjacencyMatrixEigenvalue": 0.75,
     "MaxNumPeaksAmongSurfacePores": 8,
     "LigandHotspotsVolFrac": 0.12,
-    "MaxNumEquidistantParticles": 6
+    "MaxNumEquidistantParticles": 6,
+    "NumVoidVoxels": 750,
+    "NumUnassignedVoidVoxels": 40
   },
   "poreDescriptors": {
     "Volume": {
